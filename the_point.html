@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>the point</title>
+</head>
+<style type="text/css">
+	#play {
+		cursor: pointer;
+	}
+</style>
+<body>
+<div id="play" class="playing">Pause</div>
+<div id="player"></div>
+
+<span style="font-size:200px"></span> 
+
+<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+	point();
+	function point() {
+		$('body').append('thats the point');
+		setTimeout(function() {
+			$('body').append('  <span style="font-size:200px">.</span>   ');
+			setTimeout(function() {
+				$('body').append("   just repeating it's self ");
+				setTimeout(function() {
+					$('body').append("  | ");
+					point()
+				},2000)
+			}, 1000)
+		}, 500)
+	}
+	
+</script>
+<script>
+
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '0',
+    width: '0',
+    videoId: 'SuzNvbHY6yA',
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
+function onPlayerReady(event) {
+	event.target.setVolume(100);
+  event.target.playVideo();
+
+	$('#play').on('click',function(){
+		if($(this).is('.playing')) {
+			event.target.pauseVideo();
+			$(this).removeClass('playing').text('Play');
+		} else {
+			event.target.playVideo();
+			$(this).addClass('playing').text('Pause');
+		}
+	})
+
+}
+</script>
+
+</body>
+</html>
+
+
